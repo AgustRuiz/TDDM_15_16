@@ -1,4 +1,4 @@
-package es.agustruiz.tddm.ui;
+package es.agustruiz.tddm.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

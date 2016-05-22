@@ -5,6 +5,9 @@
     <!-- Activities title -->
 
     <string name="title_activity_main">Main activity</string>
+    <string name="title_geoposition">Geoposition</string>
+    <string name="title_sensor">Sensors</string>
+    <string name="title_notification">Notification</string>
 
     <!-- Navigation drawer -->
 
@@ -16,6 +19,6 @@
     <string name="action_settings">Settings</string>
     <string name="action_notifications">Notifications</string>
     <string name="action_sensors">Sensors</string>
-    <string name="action_geolocation">Geolocation</string>
+    <string name="action_geoposition">Geoposition</string>
 
 </resources>
