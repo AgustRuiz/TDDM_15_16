@@ -1,9 +1,21 @@
 <resources>
-    <string name="app_name">tddm</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <string name="app_name">TDDM</string>
+
+    <!-- Activities title -->
+
+    <string name="title_activity_main">Main activity</string>
+
+    <!-- Navigation drawer -->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Action strings -->
+
     <string name="action_settings">Settings</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="action_sensors">Sensors</string>
+    <string name="action_geolocation">Geolocation</string>
+
 </resources>
