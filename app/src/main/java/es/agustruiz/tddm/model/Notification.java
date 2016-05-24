@@ -31,7 +31,7 @@ public class Notification {
         this.mId = mId;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 

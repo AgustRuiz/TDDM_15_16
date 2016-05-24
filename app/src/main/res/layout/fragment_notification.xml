@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey200"
     tools:context=".ui.fragment.NotificationFragment">
 
-    <TextView
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/notification_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/title_notification" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

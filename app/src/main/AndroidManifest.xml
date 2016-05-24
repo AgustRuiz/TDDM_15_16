@@ -6,6 +6,7 @@
         android:name="es.agustruiz.tddm.service.notification.RegistrationService.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="es.agustruiz.tddm.service.notification.RegistrationService.permission.C2D_MESSAGE" />
 
@@ -21,7 +22,6 @@
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="es.agustruiz.tddm.service.notification.RegistrationService" />
             </intent-filter>
         </receiver>
@@ -58,7 +58,14 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".ui.activity.NotificationReceiverActivity">
+            <intent-filter>
+                <action android:name="NOTIFICATION_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

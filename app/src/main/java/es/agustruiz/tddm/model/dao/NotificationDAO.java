@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.format.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import es.agustruiz.tddm.R;
 import es.agustruiz.tddm.model.Notification;
 
 public class NotificationDAO {
@@ -51,7 +54,7 @@ public class NotificationDAO {
 
     public List<Notification> getAll() {
         List<Notification> result = new ArrayList<>();
-        String query = "select * from " + TABLE_NAME;
+        String query = "select * from " + TABLE_NAME + " order by " + COL_TIMESTAMP + " desc";
         Cursor cursor = mDatabase.rawQuery(query, new String[]{});
         if (cursor.moveToFirst()) {
             do {
@@ -76,7 +79,7 @@ public class NotificationDAO {
 
     public boolean add(Notification notification) {
         ContentValues values = new ContentValues();
-        values.put(COL_TITLE, notification.getmTitle());
+        values.put(COL_TITLE, notification.getTitle());
         values.put(COL_MESSAGE, notification.getMessage());
         values.put(COL_TIMESTAMP, notification.getTimestamp());
         return mDatabase.insert(TABLE_NAME, null, values) > 0;
@@ -119,7 +122,6 @@ public class NotificationDAO {
         String message = cursor.getString(2);
         long timestamp = cursor.getLong(3);
         return new Notification(id, title, message, timestamp);
-
     }
 
     //endregion

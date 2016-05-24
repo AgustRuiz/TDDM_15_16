@@ -20,5 +20,6 @@
     <string name="action_notifications">Notifications</string>
     <string name="action_sensors">Sensors</string>
     <string name="action_geoposition">Geoposition</string>
+    <string name="format_time_date">MM/dd/yyyy @ HH:mm:ss</string>
 
 </resources>
