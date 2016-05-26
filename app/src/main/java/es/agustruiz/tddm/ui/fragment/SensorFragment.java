@@ -7,11 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
 import es.agustruiz.tddm.R;
 
 public class SensorFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
 
     //region [Fragment methods]
 
@@ -32,42 +31,9 @@ public class SensorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sensor, container, false);
-    }
-
-    //endregion
-
-    //region [Interaction with activity]
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    //endregion
-
-    //region [Interface OnFragmentInteractionListener]
-
-    public interface OnFragmentInteractionListener {
-        void onSensorFragmentInteraction(Context context);
-    }
-
-    public void onFabPressed(Context context) {
-        if (mListener != null) {
-            mListener.onSensorFragmentInteraction(context);
-        }
+        View view = inflater.inflate(R.layout.fragment_sensor, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     //endregion

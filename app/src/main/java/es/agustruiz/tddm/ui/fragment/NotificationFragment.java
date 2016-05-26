@@ -1,6 +1,5 @@
 package es.agustruiz.tddm.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.ListViewCompat;
@@ -22,13 +21,7 @@ public class NotificationFragment extends Fragment {
     @BindView(R.id.notification_list_view)
     ListViewCompat mNotificationListView;
 
-    private OnFragmentInteractionListener mListener;
-
     //region [Fragment methods]
-
-    public static NotificationFragment newInstance() {
-        return new NotificationFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,38 +51,6 @@ public class NotificationFragment extends Fragment {
         mNotificationListView.setSelector(android.R.color.transparent);
     }
 
-    //region [Interaction with activity]
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     //endregion
 
-    //region [Interface OnFragmentInteractionListener]
-
-    public interface OnFragmentInteractionListener {
-        void onNotificationFragmentInteraction(Context context);
-    }
-
-    public void onFabPressed(Context context) {
-        if (mListener != null) {
-            mListener.onNotificationFragmentInteraction(context);
-        }
-    }
-
-    //endregion
 }

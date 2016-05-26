@@ -1,8 +1,6 @@
 package es.agustruiz.tddm.ui.activity;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,9 +29,7 @@ import es.agustruiz.tddm.ui.fragment.GeopositionFragment;
 import es.agustruiz.tddm.ui.fragment.NotificationFragment;
 import es.agustruiz.tddm.ui.fragment.SensorFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements SensorFragment.OnFragmentInteractionListener,
-        NotificationFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getName() + "[A]";
 
@@ -163,11 +159,7 @@ public class MainActivity extends AppCompatActivity
                         }
                         break;
                     case FRAGMENT_MODE_SENSOR:
-                        onSensorFragmentInteraction(mContext);
-                        break;
                     case FRAGMENT_MODE_NOTIFICATION:
-                        onNotificationFragmentInteraction(mContext);
-                        break;
                     default:
                         //Snackbar.make(view, "Fragment not loaded...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
@@ -272,21 +264,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     //endregion
-
-    //region [Implemented methods]
-
-    @Override
-    public void onSensorFragmentInteraction(Context context) {
-        Log.d(LOG_TAG, "onSensorFragmentInteraction");
-    }
-
-    @Override
-    public void onNotificationFragmentInteraction(Context context) {
-        Log.d(LOG_TAG, "onNotificationFragmentInteraction");
-    }
-
-    //endregion
-
 
     public interface OnFabClickListener {
         void onFabClick();
