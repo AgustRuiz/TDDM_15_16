@@ -1,13 +1,18 @@
 package es.agustruiz.tddm.ui.activity;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -71,11 +76,19 @@ public class MainActivity extends AppCompatActivity
             mFragment = getSupportFragmentManager().getFragment(savedInstanceState, FRAGMENT_TAG);
             switch (mFragmentMode){
                 case FRAGMENT_MODE_GEOPOSITION:
-                    Log.d(LOG_TAG, "addOnFabClickListener");
                     addOnFabClickListener((GeopositionFragment) mFragment);
+                    fabGeopositionMode();
+                    break;
+                case FRAGMENT_MODE_SENSOR:
+                    //addOnFabClickListener((SensorFragment) mFragment);
+                    fabSensorMode();
+                    break;
+                case FRAGMENT_MODE_NOTIFICATION:
+                    //addOnFabClickListener((NotificationFragment) mFragment);
+                    fabNotificationMode();
                     break;
                 default:
-                    Log.d(LOG_TAG, "Nothign here");
+                    Log.d(LOG_TAG, "Nothing here");
             }
         }
         initialize();
@@ -127,6 +140,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initializeViews() {
+        switch (mFragmentMode){
+            case FRAGMENT_MODE_GEOPOSITION:
+                fabGeopositionMode();
+                break;
+            case FRAGMENT_MODE_SENSOR:
+                fabSensorMode();
+                break;
+            case FRAGMENT_MODE_NOTIFICATION:
+                fabNotificationMode();
+                break;
+            default:
+                mFab.setVisibility(View.GONE);
+        }
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,8 +169,7 @@ public class MainActivity extends AppCompatActivity
                         onNotificationFragmentInteraction(mContext);
                         break;
                     default:
-                        Snackbar.make(view, "Fragment not loaded...", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        //Snackbar.make(view, "Fragment not loaded...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
         });
@@ -168,18 +193,21 @@ public class MainActivity extends AppCompatActivity
                         if (mFragmentMode != FRAGMENT_MODE_GEOPOSITION) {
                             mFragmentMode = FRAGMENT_MODE_GEOPOSITION;
                             createGeolocationFragment();
+                            fabGeopositionMode();
                         }
                         break;
                     case R.id.nav_sensor:
                         if (mFragmentMode != FRAGMENT_MODE_SENSOR) {
                             mFragmentMode = FRAGMENT_MODE_SENSOR;
                             createSensorFragment();
+                            fabSensorMode();
                         }
                         break;
                     case R.id.nav_notification:
                         if (mFragmentMode != FRAGMENT_MODE_NOTIFICATION) {
                             mFragmentMode = FRAGMENT_MODE_NOTIFICATION;
                             createNotificationFragment();
+                            fabNotificationMode();
                         }
                         break;
                 }
@@ -187,6 +215,26 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
+    }
+
+    private void fabGeopositionMode(){
+        Drawable drawableIcon = ContextCompat.getDrawable(mContext, R.drawable.ic_location_on_black_24dp);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawableIcon.setTint(ContextCompat.getColor(mContext, android.R.color.white));
+        }else{
+            drawableIcon = drawableIcon.mutate();
+            DrawableCompat.setTint(drawableIcon, ContextCompat.getColor(mContext, android.R.color.white));
+        }
+        mFab.setImageDrawable(drawableIcon);
+        mFab.show();
+    }
+
+    private void fabSensorMode(){
+        mFab.hide();
+    }
+
+    private void fabNotificationMode(){
+        mFab.hide();
     }
 
     //endregion
@@ -205,7 +253,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void createGeolocationFragment() {
-        Log.d(LOG_TAG, "Create geolocation fragment");
         mContainerFragment.removeAllViews();
         mFragment = new GeopositionFragment();
         addOnFabClickListener((GeopositionFragment) mFragment);
@@ -213,14 +260,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void createSensorFragment() {
-        Log.d(LOG_TAG, "Create sensor fragment");
         mContainerFragment.removeAllViews();
         mFragment = new SensorFragment();
         fragmentTransaction();
     }
 
     private void createNotificationFragment() {
-        Log.d(LOG_TAG, "Create notification fragment");
         mContainerFragment.removeAllViews();
         mFragment = new NotificationFragment();
         fragmentTransaction();

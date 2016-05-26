@@ -51,13 +51,17 @@
     <string name="msg_location_provider_not_selected">Location provider not selected</string>
     <string name="msg_error_location_provider">Error loading location provider</string>
     <string name="msg_starting_geoposition">Starting geoposition</string>
-    <string name="msg_provider_enabled">%s$1 provider enabled</string>
-    <string name="msg_provider_disabled">%s$1 provider disabled</string>
+    <string name="msg_provider_enabled">%s provider enabled</string>
+    <string name="msg_provider_disabled">%s provider disabled</string>
     <string name="msg_check_configuration">Check the configuration</string>
+    <string name="msg_no_location_found_by_criteria">No provider found with this criteria</string>
 
     <!-- Others -->
 
     <string name="format_time_date">MM/dd/yyyy @ HH:mm:ss</string>
-    <string name="unknown">\?</string>
+    <string name="no_data">No data yet…</string>
+    <string name="msg_starting_with_provider">Starting with %s provider</string>
+    <string name="msg_check_permissions">Check permissions</string>
+    <string name="stopping">Stopping</string>
 
 </resources>

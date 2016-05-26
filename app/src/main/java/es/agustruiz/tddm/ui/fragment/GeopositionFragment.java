@@ -1,7 +1,6 @@
 package es.agustruiz.tddm.ui.fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -12,14 +11,13 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,9 +36,9 @@ import es.agustruiz.tddm.ui.activity.MainActivity;
 
 public class GeopositionFragment extends Fragment implements MainActivity.OnFabClickListener {
 
-    public static final String LOG_TAG = GeopositionFragment.class.getName() + "[A]";
+    //public static final String LOG_TAG = GeopositionFragment.class.getName() + "[A]";
 
-    private final int REQUEST_PERMISSION_FINE_LOCATION_STATE = 1;
+    public final int REQUEST_PERMISSION_FINE_LOCATION_STATE = 1;
 
     @BindView(R.id.spinner_config_location_mode)
     MaterialBetterSpinner mSpinnerConfigLocationMode;
@@ -81,6 +79,9 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
     @BindView(R.id.text_view_speed)
     TextView mTextViewSpeed;
 
+    @BindView(R.id.card_location_details)
+    CardView mCardLocationDetails;
+
     List<String> mListLocationProvider;
     Map<Integer, Integer> mPowerCriteriaMap;
     Map<Integer, Integer> mAccuracyCriteriaMap;
@@ -94,6 +95,9 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
     LocationProvider mLocationProvider;
     LocationListener mLocationListener;
 
+    boolean mIsLocationListenerOn = false;
+    private static final String IS_LOCATION_LISTENER_ON_TAG = "mIsLocationListenerOn";
+
     Context mContext;
 
     //region [Fragment methods]
@@ -104,6 +108,9 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            mIsLocationListenerOn = savedInstanceState.getBoolean(IS_LOCATION_LISTENER_ON_TAG);
+        }
     }
 
     @Override
@@ -116,6 +123,12 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
         loadPowerCriteriaSpinner();
         loadAccuracyCriteriaSpinner();
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(IS_LOCATION_LISTENER_ON_TAG, mIsLocationListenerOn);
     }
 
     //endregion
@@ -167,7 +180,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
                     providersArray);
             mSpinnerLocationProvider.setAdapter(mSpinnerLocationProviderAdapter);
         } else {
-            showMessage("Check permissions");
+            showMessage(mContext.getString(R.string.msg_check_permissions));
         }
     }
 
@@ -222,7 +235,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
     }
 
     private void resetValues() {
-        String defaultValue = mContext.getString(R.string.unknown);
+        String defaultValue = mContext.getString(R.string.no_data);
         mTextViewLatitude.setText(defaultValue);
         mTextViewLongitude.setText(defaultValue);
         mTextViewAccuracy.setText(defaultValue);
@@ -275,9 +288,10 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
         if (mLocationMode == null) {
             showMessage(mContext.getString(R.string.msg_check_configuration));
         } else {
+            String provider;
             switch (mLocationMode) {
                 case LOCATION_MODE_PROVIDER:
-                    String provider = mSpinnerLocationProvider.getText().toString();
+                    provider = mSpinnerLocationProvider.getText().toString();
                     if (provider.isEmpty()) {
                         showMessage(mContext.getString(R.string.msg_location_provider_not_selected));
                     } else {
@@ -310,14 +324,84 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
                                     }
                                 };
                                 mLocationManager.requestLocationUpdates(provider, 0, 0, mLocationListener);
+                                mCardLocationDetails.setVisibility(View.VISIBLE);
+                                mIsLocationListenerOn=true;
+                                showMessage(mContext.getString(R.string.msg_starting_with_provider, provider));
+
                             } else {
-                                showMessage("Check permissions");
+                                showMessage(mContext.getString(R.string.msg_check_permissions));
                             }
                         }
                     }
                     break;
                 case LOCATION_MODE_CRITERIA:
-                    showMessage("Not implemented yet");
+                    String powerCriteriaString = mSpinnerPowerCriteria.getText().toString();
+                    String accuracyCriteriaString = mSpinnerAccuracyCriteria.getText().toString();
+                    if (!powerCriteriaString.isEmpty() && !accuracyCriteriaString.isEmpty()) {
+                        Criteria criteria = new Criteria();
+                        Integer powerCriteria = null;
+                        for(Map.Entry<Integer, Integer> entry: mPowerCriteriaMap.entrySet()){
+                            if(mContext.getString(entry.getKey()).equals(powerCriteriaString)){
+                                powerCriteria = entry.getValue();
+                                break;
+                            }
+                        }
+                        if(powerCriteria!=null)
+                            criteria.setPowerRequirement(powerCriteria);
+
+                        Integer accuracyCriteria = null;
+                        for(Map.Entry<Integer, Integer> entry: mAccuracyCriteriaMap.entrySet()){
+                            if(mContext.getString(entry.getKey()).equals(accuracyCriteriaString)){
+                                accuracyCriteria = entry.getValue();
+                                break;
+                            }
+                        }
+                        if(accuracyCriteria!=null)
+                            criteria.setAccuracy(accuracyCriteria);
+
+                        provider = mLocationManager.getBestProvider(criteria, true);
+                        if(provider == null || provider.isEmpty()){
+                            showMessage(mContext.getString(R.string.msg_no_location_found_by_criteria));
+                        }else{
+                            mLocationProvider = mLocationManager.getProvider(provider);
+                            if (mLocationProvider == null) {
+                                resetValues();
+                                showMessage(mContext.getString(R.string.msg_error_location_provider));
+                            } else {
+                                checkUnsuportedValues(mLocationProvider);
+                                if (checkLocationPermission()) {
+                                    mLocationListener = new LocationListener() {
+                                        @Override
+                                        public void onLocationChanged(Location location) {
+                                            updateValues(location);
+                                        }
+
+                                        @Override
+                                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                                        }
+
+                                        @Override
+                                        public void onProviderEnabled(String provider) {
+                                            showMessage(mContext.getString(R.string.msg_provider_enabled, provider));
+                                        }
+
+                                        @Override
+                                        public void onProviderDisabled(String provider) {
+                                            showMessage(mContext.getString(R.string.msg_provider_disabled, provider));
+                                        }
+                                    };
+                                    mLocationManager.requestLocationUpdates(provider, 0, 0, mLocationListener);
+                                    mCardLocationDetails.setVisibility(View.VISIBLE);
+                                    mIsLocationListenerOn=true;
+                                    showMessage(mContext.getString(R.string.msg_starting_with_provider, provider));
+                                } else {
+                                    showMessage(mContext.getString(R.string.msg_check_configuration));
+                                }
+                            }
+                        }
+                    } else {
+                        showMessage(mContext.getString(R.string.msg_check_configuration));
+                    }
                     break;
             }
         }
@@ -339,16 +423,16 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
 
     @Override
     public void onFabClick() {
-        Log.d(LOG_TAG, "onFabClick()");
         if (mLocationProvider == null) {
-            showMessage("Starting");
             startGeolocation();
         } else {
             if (checkLocationPermission()) {
-                showMessage("Stopping");
+                showMessage(mContext.getString(R.string.stopping));
                 mLocationManager.removeUpdates(mLocationListener);
                 mLocationProvider = null;
+                mCardLocationDetails.setVisibility(View.GONE);
                 resetValues();
+                mIsLocationListenerOn=false;
             }
         }
     }
