@@ -78,5 +78,11 @@
     <string name="msg_check_permissions">Check permissions</string>
     <string name="stopping">Stopping</string>
     <string name="not_implemented">Not implemented</string>
+    <string name="value_x">X</string>
+    <string name="question_mark">\?</string>
+    <string name="value_z">Z</string>
+    <string name="value_y">Y</string>
+    <string name="sensor_not_available">Sensor not available</string>
+    <string name="unknown_error">Unknown error</string>
 
 </resources>

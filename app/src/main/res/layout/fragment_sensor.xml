@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey200"
     tools:context=".ui.fragment.SensorFragment">
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -33,12 +34,71 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
+                    android:id="@+id/text_view_accelerometer_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
+                    android:text="@string/sensor_not_available"
+                    android:textColor="@color/red"
+                    android:visibility="gone"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TableLayout
+                    android:id="@+id/table_accelerometer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow
+                        android:gravity="bottom">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/value_x"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <TextView
+                            android:id="@+id/text_view_accelerometer_x"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/question_mark"
+                            android:textColor="@android:color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    </TableRow>
+                    <TableRow
+                        android:gravity="bottom">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/value_y"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <TextView
+                            android:id="@+id/text_view_accelerometer_y"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/question_mark"
+                            android:textColor="@android:color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    </TableRow>
+                    <TableRow
+                        android:gravity="bottom">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/value_z"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                        <TextView
+                            android:id="@+id/text_view_accelerometer_z"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/question_mark"
+                            android:textColor="@android:color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    </TableRow>
+                </TableLayout>
 
             </android.support.v7.widget.LinearLayoutCompat>
 
