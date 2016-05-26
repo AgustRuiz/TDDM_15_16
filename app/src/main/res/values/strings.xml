@@ -21,6 +21,20 @@
     <string name="title_config_location_mode">Location provider mode</string>
     <string name="title_by_location_provider">By location provider</string>
     <string name="title_by_criteria">By criteria</string>
+    <string name="title">Title</string>
+    <string name="title_accelerometer">Accelerometer</string>
+    <string name="title_gravity">Gravity</string>
+    <string name="title_gyroscope">Gyroscope</string>
+    <string name="title_light">Light</string>
+    <string name="title_linear_acceleration">Linear acceleration</string>
+    <string name="title_magnetic_field">Magnetic field</string>
+    <string name="title_orientation">Orientation</string>
+    <string name="title_proximity">Proximity</string>
+    <string name="title_rotation_vector">Rotation vector</string>
+    <string name="title_ambient_temperature">Ambient temperature</string>
+    <string name="title_presure">Presure</string>
+    <string name="title_relative_humidity">Reletive humidity</string>
+    <string name="title_inner_temperature">Inner temperature</string>
 
     <!-- Navigation drawer -->
 
@@ -63,5 +77,6 @@
     <string name="msg_starting_with_provider">Starting with %s provider</string>
     <string name="msg_check_permissions">Check permissions</string>
     <string name="stopping">Stopping</string>
+    <string name="not_implemented">Not implemented</string>
 
 </resources>
