@@ -28,8 +28,7 @@ import es.agustruiz.tddm.ui.fragment.SensorFragment;
 
 public class MainActivity extends AppCompatActivity
         implements SensorFragment.OnFragmentInteractionListener,
-        GeopositionFragment.OnFragmentInteractionListener,
-        NotificationFragment.OnFragmentInteractionListener{
+        NotificationFragment.OnFragmentInteractionListener {
 
     public static final String LOG_TAG = MainActivity.class.getName() + "[A]";
 
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private static final char FRAGMENT_MODE_SENSOR = 2;
     private static final char FRAGMENT_MODE_NOTIFICATION = 3;
     private char mFragmentMode = FRAGMENT_MODE_EMPTY;
+    private static final String FRAGMENT_MODE_TAG = "mFragmentMode";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.main_frame_layout_container)
     FrameLayout mContainerFragment;
 
-    Context mContext = null;
-    FragmentManager mFragmentManager;
+    private Context mContext = null;
+    private FragmentManager mFragmentManager;
+    private Fragment mFragment;
+    private static final String FRAGMENT_TAG = "mFragment";
 
-    Fragment mFragment;
+    private OnFabClickListener onFabClickListener = null;
 
     //region [Public methods]
 
@@ -64,7 +66,26 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mContext = getApplicationContext();
+        if(savedInstanceState!=null) {
+            mFragmentMode = savedInstanceState.getChar(FRAGMENT_MODE_TAG);
+            mFragment = getSupportFragmentManager().getFragment(savedInstanceState, FRAGMENT_TAG);
+            switch (mFragmentMode){
+                case FRAGMENT_MODE_GEOPOSITION:
+                    Log.d(LOG_TAG, "addOnFabClickListener");
+                    addOnFabClickListener((GeopositionFragment) mFragment);
+                    break;
+                default:
+                    Log.d(LOG_TAG, "Nothign here");
+            }
+        }
         initialize();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putChar(FRAGMENT_MODE_TAG, mFragmentMode);
+        getSupportFragmentManager().putFragment(outState, FRAGMENT_TAG, mFragment);
     }
 
     @Override
@@ -111,7 +132,9 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 switch (mFragmentMode) {
                     case FRAGMENT_MODE_GEOPOSITION:
-                        onGeopositionFragmentInteraction(mContext);
+                        if(onFabClickListener!=null){
+                            onFabClickListener.onFabClick();
+                        }
                         break;
                     case FRAGMENT_MODE_SENSOR:
                         onSensorFragmentInteraction(mContext);
@@ -170,7 +193,7 @@ public class MainActivity extends AppCompatActivity
 
     //region [Fragments method]
 
-    private void fragmentTransaction(){
+    private void fragmentTransaction() {
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         try {
@@ -185,6 +208,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(LOG_TAG, "Create geolocation fragment");
         mContainerFragment.removeAllViews();
         mFragment = new GeopositionFragment();
+        addOnFabClickListener((GeopositionFragment) mFragment);
         fragmentTransaction();
     }
 
@@ -212,14 +236,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onGeopositionFragmentInteraction(Context context) {
-        Log.d(LOG_TAG, "onGeopositionFragmentInteraction");
-    }
-
-    @Override
     public void onNotificationFragmentInteraction(Context context) {
         Log.d(LOG_TAG, "onNotificationFragmentInteraction");
     }
 
     //endregion
+
+
+    public interface OnFabClickListener {
+        void onFabClick();
+    }
+
+    public void addOnFabClickListener(OnFabClickListener listener) {
+        onFabClickListener = listener;
+    }
+
 }
