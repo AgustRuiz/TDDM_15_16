@@ -31,6 +31,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mLightSensor;
     private Sensor mLinearAccelerationSensor;
     private Sensor mMagneticFieldSensor;
+    private Sensor mRotationVectorSensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -94,6 +95,17 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_magnetic_field_z)
     TextView mMagneticFieldZ;
 
+    @BindView(R.id.table_rotation_vector)
+    TableLayout mTableRotationVector;
+    @BindView(R.id.text_view_rotation_vector_error)
+    TextView mRotationVectorError;
+    @BindView(R.id.text_view_rotation_vector_x)
+    TextView mRotationVectorX;
+    @BindView(R.id.text_view_rotation_vector_y)
+    TextView mRotationVectorY;
+    @BindView(R.id.text_view_rotation_vector_z)
+    TextView mRotationVectorZ;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -116,6 +128,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeLightSensor();
         initializeLinearAccelerationSensor();
         initializeMagneticFieldSensor();
+        initializeRotationVectorSensor();
         return view;
     }
 
@@ -283,6 +296,31 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
+    //region [Rotation vector]
+
+    private void initializeRotationVectorSensor() {
+        mRotationVectorSensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_ROTATION_VECTOR);
+        if (listSensors.size() == 0) {
+            setRotationVectorError(null);
+        } else {
+            mRotationVectorSensor = listSensors.get(0);
+            if (mRotationVectorSensor == null) {
+                setRotationVectorError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
+
+    private void setRotationVectorError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mRotationVectorError.setText(errorMessage.trim());
+        }
+        mTableRotationVector.setVisibility(View.GONE);
+        mRotationVectorError.setVisibility(View.VISIBLE);
+    }
+
+    //endregion
+
 
 
 
@@ -324,6 +362,11 @@ public class SensorFragment extends Fragment implements SensorEventListener {
                 mMagneticFieldY.setText(String.format(Locale.getDefault(), "%f", event.values[1]));
                 mMagneticFieldZ.setText(String.format(Locale.getDefault(), "%f", event.values[2]));
                 break;
+            case Sensor.TYPE_ROTATION_VECTOR:
+                mRotationVectorX.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                mRotationVectorY.setText(String.format(Locale.getDefault(), "%f", event.values[1]));
+                mRotationVectorZ.setText(String.format(Locale.getDefault(), "%f", event.values[2]));
+                break;
         }
     }
 
@@ -345,6 +388,8 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         if (mMagneticFieldSensor != null)
             mSensorManager.registerListener(this, mMagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(mRotationVectorSensor!=null)
+            mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {
