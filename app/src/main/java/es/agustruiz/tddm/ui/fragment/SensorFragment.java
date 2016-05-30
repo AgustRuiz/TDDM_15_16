@@ -34,6 +34,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mRotationVectorSensor;
     private Sensor mProximitySensor;
     private Sensor mPressureSensor;
+    private Sensor mRelativeHumiditySensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -122,6 +123,13 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_pressure_value)
     TextView mPressureValue;
 
+    @BindView(R.id.table_relative_humidity)
+    TableLayout mTableRelativeHumidity;
+    @BindView(R.id.text_view_relative_humidity_error)
+    TextView mRelativeHumidityError;
+    @BindView(R.id.text_view_relative_humidity_value)
+    TextView mRelativeHumidityValue;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -147,6 +155,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeRotationVectorSensor();
         initializeProximitySensor();
         initializePressureSensor();
+        initializeRelativeHumidity();
         return view;
     }
 
@@ -389,6 +398,31 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
+    //region [Relative humidity]
+
+    private void initializeRelativeHumidity() {
+        mRelativeHumiditySensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if (listSensors.size() == 0) {
+            setRelativeHumidityError(null);
+        } else {
+            mRelativeHumiditySensor = listSensors.get(0);
+            if (mRelativeHumiditySensor== null) {
+                setRelativeHumidityError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
+
+    private void setRelativeHumidityError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mRelativeHumidityError.setText(errorMessage.trim());
+        }
+        mTableRelativeHumidity.setVisibility(View.GONE);
+        mRelativeHumidityError.setVisibility(View.VISIBLE);
+    }
+
+    //endregion
+
 
 
 
@@ -440,6 +474,9 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             case Sensor.TYPE_PRESSURE:
                 mPressureValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
                 break;
+            case Sensor.TYPE_RELATIVE_HUMIDITY:
+                mRelativeHumidityValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                break;
         }
     }
 
@@ -467,6 +504,8 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
         if(mPressureSensor!=null)
             mSensorManager.registerListener(this, mPressureSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(mRelativeHumiditySensor!=null)
+            mSensorManager.registerListener(this, mRelativeHumiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {

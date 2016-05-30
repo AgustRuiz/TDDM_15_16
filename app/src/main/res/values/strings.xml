@@ -33,7 +33,7 @@
     <string name="title_rotation_vector">Rotation vector</string>
     <string name="title_ambient_temperature">Ambient temperature</string>
     <string name="title_pressure">Pressure</string>
-    <string name="title_relative_humidity">Reletive humidity</string>
+    <string name="title_relative_humidity">Relative humidity</string>
     <string name="title_inner_temperature">Inner temperature</string>
 
     <!-- Navigation drawer -->
