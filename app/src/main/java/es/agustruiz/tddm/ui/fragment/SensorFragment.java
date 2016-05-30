@@ -30,6 +30,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mGyroscopeSensor;
     private Sensor mLightSensor;
     private Sensor mLinearAccelerationSensor;
+    private Sensor mMagneticFieldSensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -82,6 +83,17 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_linear_acceleration_z)
     TextView mLinearAccelerationZ;
 
+    @BindView(R.id.table_magnetic_field)
+    TableLayout mTableMagneticField;
+    @BindView(R.id.text_view_magnetic_field_error)
+    TextView mMagneticFieldError;
+    @BindView(R.id.text_view_magnetic_field_x)
+    TextView mMagneticFieldX;
+    @BindView(R.id.text_view_magnetic_field_y)
+    TextView mMagneticFieldY;
+    @BindView(R.id.text_view_magnetic_field_z)
+    TextView mMagneticFieldZ;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -103,6 +115,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeGyroscopeSensor();
         initializeLightSensor();
         initializeLinearAccelerationSensor();
+        initializeMagneticFieldSensor();
         return view;
     }
 
@@ -220,7 +233,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
-    //region [Gyroscope]
+    //region [Linear acceleration]
 
     private void initializeLinearAccelerationSensor() {
         mLinearAccelerationSensor = null;
@@ -229,7 +242,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             setLinearAccelerationError(null);
         } else {
             mLinearAccelerationSensor = listSensors.get(0);
-            if (mGyroscopeSensor == null) {
+            if (mLinearAccelerationSensor == null) {
                 setLinearAccelerationError(mContext.getString(R.string.unknown_error));
             }
         }
@@ -237,13 +250,45 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     private void setLinearAccelerationError(String errorMessage) {
         if (errorMessage != null && !errorMessage.trim().isEmpty()) {
-            mGyroscopeError.setText(errorMessage.trim());
+            mLinearAccelerationError.setText(errorMessage.trim());
         }
-        mTableGyroscope.setVisibility(View.GONE);
-        mGyroscopeError.setVisibility(View.VISIBLE);
+        mTableLinearAcceleration.setVisibility(View.GONE);
+        mLinearAccelerationError.setVisibility(View.VISIBLE);
     }
 
     //endregion
+
+    //region [Magnetic field]
+
+    private void initializeMagneticFieldSensor() {
+        mMagneticFieldSensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
+        if (listSensors.size() == 0) {
+            setMagneticFieldError(null);
+        } else {
+            mMagneticFieldSensor = listSensors.get(0);
+            if (mMagneticFieldSensor == null) {
+                setMagneticFieldError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
+
+    private void setMagneticFieldError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mMagneticFieldError.setText(errorMessage.trim());
+        }
+        mTableMagneticField.setVisibility(View.GONE);
+        mMagneticFieldError.setVisibility(View.VISIBLE);
+    }
+
+    //endregion
+
+
+
+
+
+
+
 
 
     //region [Sensor general]
@@ -274,6 +319,11 @@ public class SensorFragment extends Fragment implements SensorEventListener {
                 mLinearAccelerationY.setText(String.format(Locale.getDefault(), "%f", event.values[1]));
                 mLinearAccelerationZ.setText(String.format(Locale.getDefault(), "%f", event.values[2]));
                 break;
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                mMagneticFieldX.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                mMagneticFieldY.setText(String.format(Locale.getDefault(), "%f", event.values[1]));
+                mMagneticFieldZ.setText(String.format(Locale.getDefault(), "%f", event.values[2]));
+                break;
         }
     }
 
@@ -293,6 +343,8 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         if (mLinearAccelerationSensor != null)
             mSensorManager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mMagneticFieldSensor != null)
+            mSensorManager.registerListener(this, mMagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {
