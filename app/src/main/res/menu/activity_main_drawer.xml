@@ -10,6 +10,10 @@
             android:icon="@drawable/ic_visibility_black_24dp"
             android:title="@string/action_sensors" />
         <item
+            android:id="@+id/nav_video"
+            android:icon="@drawable/ic_videocam_black_24dp"
+            android:title="@string/action_video" />
+        <item
             android:id="@+id/nav_notification"
             android:icon="@drawable/ic_notifications_black_24dp"
             android:title="@string/action_notifications" />

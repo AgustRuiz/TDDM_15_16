@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.agustruiz.tddm.R;
 import es.agustruiz.tddm.ui.fragment.GeopositionFragment;
+import es.agustruiz.tddm.ui.fragment.VideoFragment;
 import es.agustruiz.tddm.ui.fragment.NotificationFragment;
 import es.agustruiz.tddm.ui.fragment.SensorFragment;
 
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private static final char FRAGMENT_MODE_EMPTY = 0;
     private static final char FRAGMENT_MODE_GEOPOSITION = 1;
     private static final char FRAGMENT_MODE_SENSOR = 2;
-    private static final char FRAGMENT_MODE_NOTIFICATION = 3;
+    private static final char FRAGMENT_MODE_VIDEO = 3;
+    private static final char FRAGMENT_MODE_NOTIFICATION = 4;
     private char mFragmentMode = FRAGMENT_MODE_EMPTY;
     private static final String FRAGMENT_MODE_TAG = "mFragmentMode";
 
@@ -78,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 case FRAGMENT_MODE_SENSOR:
                     //addOnFabClickListener((SensorFragment) mFragment);
                     fabSensorMode();
+                    break;
+                case FRAGMENT_MODE_VIDEO:
+                    //addOnFabClickListener((NotificationFragment) mFragment);
+                    fabVideoMode();
                     break;
                 case FRAGMENT_MODE_NOTIFICATION:
                     //addOnFabClickListener((NotificationFragment) mFragment);
@@ -143,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
             case FRAGMENT_MODE_SENSOR:
                 fabSensorMode();
                 break;
+            case FRAGMENT_MODE_VIDEO:
+                fabVideoMode();
+                break;
             case FRAGMENT_MODE_NOTIFICATION:
                 fabNotificationMode();
                 break;
@@ -159,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case FRAGMENT_MODE_SENSOR:
+                    case FRAGMENT_MODE_VIDEO:
                     case FRAGMENT_MODE_NOTIFICATION:
                     default:
                         //Snackbar.make(view, "Fragment not loaded...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -195,6 +205,13 @@ public class MainActivity extends AppCompatActivity {
                             fabSensorMode();
                         }
                         break;
+                    case R.id.nav_video:
+                        if (mFragmentMode != FRAGMENT_MODE_VIDEO) {
+                            mFragmentMode = FRAGMENT_MODE_VIDEO;
+                            createVideoFragment();
+                            fabVideoMode();
+                        }
+                        break;
                     case R.id.nav_notification:
                         if (mFragmentMode != FRAGMENT_MODE_NOTIFICATION) {
                             mFragmentMode = FRAGMENT_MODE_NOTIFICATION;
@@ -222,6 +239,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fabSensorMode(){
+        mFab.hide();
+    }
+
+    private void fabVideoMode(){
         mFab.hide();
     }
 
@@ -254,6 +275,12 @@ public class MainActivity extends AppCompatActivity {
     private void createSensorFragment() {
         mContainerFragment.removeAllViews();
         mFragment = new SensorFragment();
+        fragmentTransaction();
+    }
+
+    private void createVideoFragment() {
+        mContainerFragment.removeAllViews();
+        mFragment = new VideoFragment();
         fragmentTransaction();
     }
 
