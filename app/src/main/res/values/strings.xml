@@ -84,5 +84,6 @@
     <string name="value_y">Y</string>
     <string name="sensor_not_available">Sensor not available</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="value">Value</string>
 
 </resources>
