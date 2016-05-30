@@ -33,6 +33,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mMagneticFieldSensor;
     private Sensor mRotationVectorSensor;
     private Sensor mProximitySensor;
+    private Sensor mPressureSensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -114,6 +115,13 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_proximity_value)
     TextView mProximityValue;
 
+    @BindView(R.id.table_pressure)
+    TableLayout mTablePressure;
+    @BindView(R.id.text_view_pressure_error)
+    TextView mPressureError;
+    @BindView(R.id.text_view_pressure_value)
+    TextView mPressureValue;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -138,6 +146,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeMagneticFieldSensor();
         initializeRotationVectorSensor();
         initializeProximitySensor();
+        initializePressureSensor();
         return view;
     }
 
@@ -330,7 +339,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
-    //region [Light]
+    //region [Proximity]
 
     private void initializeProximitySensor() {
         mProximitySensor = null;
@@ -351,6 +360,31 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         }
         mTableProximity.setVisibility(View.GONE);
         mProximityError.setVisibility(View.VISIBLE);
+    }
+
+    //endregion
+
+    //region [Pressure]
+
+    private void initializePressureSensor() {
+        mPressureSensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_PRESSURE);
+        if (listSensors.size() == 0) {
+            setPressureError(null);
+        } else {
+            mPressureSensor = listSensors.get(0);
+            if (mPressureSensor== null) {
+                setPressureError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
+
+    private void setPressureError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mPressureError.setText(errorMessage.trim());
+        }
+        mTablePressure.setVisibility(View.GONE);
+        mPressureError.setVisibility(View.VISIBLE);
     }
 
     //endregion
@@ -403,6 +437,9 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             case Sensor.TYPE_PROXIMITY:
                 mProximityValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
                 break;
+            case Sensor.TYPE_PRESSURE:
+                mPressureValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                break;
         }
     }
 
@@ -428,6 +465,8 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
         if(mProximitySensor!=null)
             mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(mPressureSensor!=null)
+            mSensorManager.registerListener(this, mPressureSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {
