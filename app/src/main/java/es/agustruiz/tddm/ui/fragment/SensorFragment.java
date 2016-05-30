@@ -32,6 +32,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mLinearAccelerationSensor;
     private Sensor mMagneticFieldSensor;
     private Sensor mRotationVectorSensor;
+    private Sensor mProximitySensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -106,6 +107,13 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_rotation_vector_z)
     TextView mRotationVectorZ;
 
+    @BindView(R.id.table_proximity)
+    TableLayout mTableProximity;
+    @BindView(R.id.text_view_proximity_error)
+    TextView mProximityError;
+    @BindView(R.id.text_view_proximity_value)
+    TextView mProximityValue;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -129,6 +137,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeLinearAccelerationSensor();
         initializeMagneticFieldSensor();
         initializeRotationVectorSensor();
+        initializeProximitySensor();
         return view;
     }
 
@@ -321,6 +330,30 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
+    //region [Light]
+
+    private void initializeProximitySensor() {
+        mProximitySensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_PROXIMITY);
+        if (listSensors.size() == 0) {
+            setProximityError(null);
+        } else {
+            mProximitySensor = listSensors.get(0);
+            if (mProximitySensor == null) {
+                setProximityError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
+
+    private void setProximityError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mProximityError.setText(errorMessage.trim());
+        }
+        mTableProximity.setVisibility(View.GONE);
+        mProximityError.setVisibility(View.VISIBLE);
+    }
+
+    //endregion
 
 
 
@@ -367,6 +400,9 @@ public class SensorFragment extends Fragment implements SensorEventListener {
                 mRotationVectorY.setText(String.format(Locale.getDefault(), "%f", event.values[1]));
                 mRotationVectorZ.setText(String.format(Locale.getDefault(), "%f", event.values[2]));
                 break;
+            case Sensor.TYPE_PROXIMITY:
+                mProximityValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                break;
         }
     }
 
@@ -390,6 +426,8 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mMagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
         if(mRotationVectorSensor!=null)
             mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(mProximitySensor!=null)
+            mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {

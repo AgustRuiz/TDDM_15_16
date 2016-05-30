@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -40,64 +40,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_accelerometer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TableRow
-                        android:gravity="bottom">
+
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_accelerometer_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
-                    <TableRow
-                        android:gravity="bottom">
+
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_accelerometer_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
-                    <TableRow
-                        android:gravity="bottom">
+
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_accelerometer_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
                 </TableLayout>
 
@@ -134,67 +140,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_gravity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gravity_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gravity_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gravity_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -232,67 +241,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_gyroscope"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gyroscope_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gyroscope_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_gyroscope_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -330,31 +342,32 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_light_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -392,67 +405,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_linear_acceleration"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_linear_acceleration_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_linear_acceleration_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_linear_acceleration_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -490,67 +506,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_magnetic_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_magnetic_field_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_magnetic_field_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_magnetic_field_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -588,67 +607,70 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/sensor_not_available"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/red"
-                    android:visibility="gone"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:visibility="gone" />
 
                 <TableLayout
                     android:id="@+id/table_rotation_vector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_x"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_rotation_vector_x"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_y"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_rotation_vector_y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="bottom">
+                    <TableRow android:gravity="bottom">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/value_z"
                             android:textAppearance="?android:attr/textAppearanceSmall" />
+
                         <TextView
                             android:id="@+id/text_view_rotation_vector_z"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="@string/question_mark"
-                            android:textColor="@android:color/black"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>
@@ -657,22 +679,7 @@
 
         </android.support.v7.widget.CardView>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!-- Proximity -->
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -696,182 +703,40 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
+                    android:id="@+id/text_view_proximity_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
+                    android:text="@string/sensor_not_available"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@color/red"
+                    android:visibility="gone" />
 
-            </android.support.v7.widget.LinearLayoutCompat>
+                <TableLayout
+                    android:id="@+id/table_proximity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </android.support.v7.widget.CardView>
+                    <TableRow android:gravity="bottom">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            app:cardBackgroundColor="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/value"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/text_view_proximity_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/question_mark"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@android:color/black" />
+                    </TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/title_rotation_vector"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/title_ambient_temperature"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/title_presure"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/title_relative_humidity"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:padding="8dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/title_inner_temperature"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/not_implemented"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black" />
+                </TableLayout>
 
             </android.support.v7.widget.LinearLayoutCompat>
 
@@ -879,4 +744,4 @@
 
     </android.support.v7.widget.LinearLayoutCompat>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
