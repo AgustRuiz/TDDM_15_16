@@ -35,6 +35,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     private Sensor mProximitySensor;
     private Sensor mPressureSensor;
     private Sensor mRelativeHumiditySensor;
+    private Sensor mAmbientTemperatureSensor;
 
     @BindView(R.id.table_accelerometer)
     TableLayout mTableAccelerometer;
@@ -130,6 +131,13 @@ public class SensorFragment extends Fragment implements SensorEventListener {
     @BindView(R.id.text_view_relative_humidity_value)
     TextView mRelativeHumidityValue;
 
+    @BindView(R.id.table_ambient_temperature)
+    TableLayout mTableAmbientTemperature;
+    @BindView(R.id.text_view_ambient_temperature_error)
+    TextView mAmbientTemperatureError;
+    @BindView(R.id.text_view_ambient_temperature_value)
+    TextView mAmbientTemperatureValue;
+
     Context mContext;
 
     //region [Fragment methods]
@@ -156,6 +164,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
         initializeProximitySensor();
         initializePressureSensor();
         initializeRelativeHumidity();
+        initializeAmbientTemperature();
         return view;
     }
 
@@ -382,7 +391,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             setPressureError(null);
         } else {
             mPressureSensor = listSensors.get(0);
-            if (mPressureSensor== null) {
+            if (mPressureSensor == null) {
                 setPressureError(mContext.getString(R.string.unknown_error));
             }
         }
@@ -407,7 +416,7 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             setRelativeHumidityError(null);
         } else {
             mRelativeHumiditySensor = listSensors.get(0);
-            if (mRelativeHumiditySensor== null) {
+            if (mRelativeHumiditySensor == null) {
                 setRelativeHumidityError(mContext.getString(R.string.unknown_error));
             }
         }
@@ -423,12 +432,30 @@ public class SensorFragment extends Fragment implements SensorEventListener {
 
     //endregion
 
+    //region [Ambient temperature]
 
+    private void initializeAmbientTemperature() {
+        mAmbientTemperatureSensor = null;
+        List<Sensor> listSensors = mSensorManager.getSensorList(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        if (listSensors.size() == 0) {
+            setAmbientTemperatureError(null);
+        } else {
+            mAmbientTemperatureSensor = listSensors.get(0);
+            if (mAmbientTemperatureSensor == null) {
+                setAmbientTemperatureError(mContext.getString(R.string.unknown_error));
+            }
+        }
+    }
 
+    private void setAmbientTemperatureError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.trim().isEmpty()) {
+            mAmbientTemperatureError.setText(errorMessage.trim());
+        }
+        mTableAmbientTemperature.setVisibility(View.GONE);
+        mAmbientTemperatureError.setVisibility(View.VISIBLE);
+    }
 
-
-
-
+    //endregion
 
     //region [Sensor general]
 
@@ -477,6 +504,9 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             case Sensor.TYPE_RELATIVE_HUMIDITY:
                 mRelativeHumidityValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
                 break;
+            case Sensor.TYPE_AMBIENT_TEMPERATURE:
+                mAmbientTemperatureValue.setText(String.format(Locale.getDefault(), "%f", event.values[0]));
+                break;
         }
     }
 
@@ -498,14 +528,16 @@ public class SensorFragment extends Fragment implements SensorEventListener {
             mSensorManager.registerListener(this, mLinearAccelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         if (mMagneticFieldSensor != null)
             mSensorManager.registerListener(this, mMagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        if(mRotationVectorSensor!=null)
+        if (mRotationVectorSensor != null)
             mSensorManager.registerListener(this, mRotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        if(mProximitySensor!=null)
+        if (mProximitySensor != null)
             mSensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
-        if(mPressureSensor!=null)
+        if (mPressureSensor != null)
             mSensorManager.registerListener(this, mPressureSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        if(mRelativeHumiditySensor!=null)
+        if (mRelativeHumiditySensor != null)
             mSensorManager.registerListener(this, mRelativeHumiditySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mAmbientTemperatureSensor != null)
+            mSensorManager.registerListener(this, mAmbientTemperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void unregisterSensorListeners() {
