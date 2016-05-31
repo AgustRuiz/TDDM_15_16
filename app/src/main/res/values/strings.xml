@@ -86,5 +86,11 @@
     <string name="sensor_not_available">Sensor not available</string>
     <string name="unknown_error">Unknown error</string>
     <string name="value">Value</string>
+    <string name="action_download_video">Download video</string>
+    <string name="msg_no_storage_permission">No storage permission</string>
+    <string name="msg_download_video">Download video</string>
+    <string name="msg_downloading_video">Downloading video…</string>
+    <string name="msg_downloaded_video">Video downloaded!</string>
+    <string name="msg_video_ready">Video ready!</string>
 
 </resources>

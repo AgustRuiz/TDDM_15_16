@@ -1,15 +1,12 @@
 package es.agustruiz.tddm.ui.fragment;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -32,13 +29,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.agustruiz.tddm.R;
+import es.agustruiz.tddm.service.Permission;
 import es.agustruiz.tddm.ui.activity.MainActivity;
 
 public class GeopositionFragment extends Fragment implements MainActivity.OnFabClickListener {
 
     //public static final String LOG_TAG = GeopositionFragment.class.getName() + "[A]";
-
-    public final int REQUEST_PERMISSION_FINE_LOCATION_STATE = 1;
 
     @BindView(R.id.spinner_config_location_mode)
     MaterialBetterSpinner mSpinnerConfigLocationMode;
@@ -171,7 +167,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
     }
 
     private void loadLocationProviderSpinner() {
-        if (checkLocationPermission()) {
+        if (Permission.getInstance().checkLocationPermission(mContext, getActivity())) {
             mListLocationProvider = mLocationManager.getProviders(true);
             String[] providersArray = mListLocationProvider.toArray(new String[mListLocationProvider.size()]);
             mSpinnerLocationProviderAdapter = new ArrayAdapter<>(
@@ -302,7 +298,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
                             showMessage(mContext.getString(R.string.msg_error_location_provider));
                         } else {
                             checkUnsuportedValues(mLocationProvider);
-                            if (checkLocationPermission()) {
+                            if (Permission.getInstance().checkLocationPermission(mContext, getActivity())) {
                                 mLocationListener = new LocationListener() {
                                     @Override
                                     public void onLocationChanged(Location location) {
@@ -369,7 +365,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
                                 showMessage(mContext.getString(R.string.msg_error_location_provider));
                             } else {
                                 checkUnsuportedValues(mLocationProvider);
-                                if (checkLocationPermission()) {
+                                if (Permission.getInstance().checkLocationPermission(mContext, getActivity())) {
                                     mLocationListener = new LocationListener() {
                                         @Override
                                         public void onLocationChanged(Location location) {
@@ -406,17 +402,6 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
             }
         }
     }
-
-    private boolean checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED
-                || ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION_FINE_LOCATION_STATE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     //endregion
 
     //region [MainActivity.OnFabClickListener methods]
@@ -426,7 +411,7 @@ public class GeopositionFragment extends Fragment implements MainActivity.OnFabC
         if (mLocationProvider == null) {
             startGeolocation();
         } else {
-            if (checkLocationPermission()) {
+            if (Permission.getInstance().checkLocationPermission(mContext, getActivity())) {
                 showMessage(mContext.getString(R.string.stopping));
                 mLocationManager.removeUpdates(mLocationListener);
                 mLocationProvider = null;

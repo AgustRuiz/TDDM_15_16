@@ -255,7 +255,6 @@ public class MainActivity extends AppCompatActivity {
     //region [Fragments method]
 
     private void fragmentTransaction() {
-
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         try {
             fragmentTransaction.add(R.id.main_frame_layout_container, mFragment);
