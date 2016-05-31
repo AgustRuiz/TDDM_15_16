@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+import android.widget.MediaController;
 
 import java.io.File;
 
@@ -31,6 +33,9 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
     @BindView(R.id.progress_video_download)
     ProgressBar mProgressVideoDownload;
 
+    @BindView(R.id.video_view)
+    VideoView mVideoView;
+
     Context mContext;
 
     private final String VIDEO_URL = "http://agustruiz.es/dev/tddm_video/PollenAlert.mp4";
@@ -43,6 +48,9 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
     private final char VIDEO_STATUS_OK = 3;
     private char mVideoStatus = VIDEO_STATUS_UNDEFINED;
     private final String VIDEO_STATUS_TAG = "mVideoStatus";
+
+    private int mVideoPosition;
+    private final String VIDEO_POSITION_TAG = "mVideoPosition";
 
     //region [Public methods]
 
@@ -60,6 +68,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
         ButterKnife.bind(this, view);
         if (savedInstanceState != null) {
             mVideoStatus = savedInstanceState.getChar(VIDEO_STATUS_TAG);
+            mVideoView.seekTo(savedInstanceState.getInt(VIDEO_POSITION_TAG));
             switchVideoDownloadedStatus();
         } else {
             initializeVideoStatus();
@@ -72,6 +81,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putChar(VIDEO_STATUS_TAG, mVideoStatus);
+        outState.putInt(VIDEO_POSITION_TAG, mVideoView.getCurrentPosition());
     }
 
     //endregion
@@ -105,6 +115,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
         mProgressVideoDownload.setVisibility(View.GONE);
         mBtnVideoDownload.setEnabled(false);
         mBtnVideoDownload.setVisibility(View.GONE);
+        mBtnVideoDownload.setVisibility(View.GONE);
     }
 
     private void setViewsVideoNotFound() {
@@ -116,6 +127,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
 
     private void initialize() {
         mContext = getContext();
+
         mBtnVideoDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +142,13 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
         } else {
             mTextViewStatus.setText(getString(R.string.msg_no_storage_permission));
             mBtnVideoDownload.setVisibility(View.GONE);
+        }
+
+        if(mVideoStatus==VIDEO_STATUS_OK){
+            mVideoView.setVideoPath(DownloadVideoFromUrl.getRootPath() + "/"
+                    + STORAGE_VIDEO_RELATIVE_PATH + "/" + STORAGE_VIDEO_NAME);
+            MediaController mediaController = new MediaController(mContext);
+            mVideoView.setMediaController(mediaController);
         }
     }
 
