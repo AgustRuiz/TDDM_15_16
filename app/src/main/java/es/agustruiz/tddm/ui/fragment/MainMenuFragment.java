@@ -18,15 +18,21 @@ public class MainMenuFragment extends Fragment {
 
     @BindView(R.id.card_geoposition)
     CardView mCardGeoposition;
+    public static final char ITEM_GEOPOSITION = 1;
 
     @BindView(R.id.card_sensors)
     CardView mCardSensor;
+    public static final char ITEM_SENSORS = 2;
 
     @BindView(R.id.card_video)
     CardView mCardVideo;
+    public static final char ITEM_VIDEO = 3;
 
     @BindView(R.id.card_notification)
     CardView mCardNotification;
+    public static final char ITEM_NOTIFICATION = 4;
+
+    MenuClickListener mListener = null;
 
     //region [Fragment methods]
 
@@ -46,36 +52,60 @@ public class MainMenuFragment extends Fragment {
 
     //endregion
 
+    //region [Public methods]
+
+    public void addMenuClickListener(MenuClickListener listener){
+        mListener = listener;
+    }
+
+    //endregion
+
     //region [Private methods]
 
     private void initializeViews(LayoutInflater inflater) {
         mCardGeoposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Card Geoposition");
+                if(mListener!=null){
+                    mListener.onItemClick(ITEM_GEOPOSITION);
+                }
             }
         });
 
         mCardSensor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Card Sensors");
+                if(mListener!=null){
+                    mListener.onItemClick(ITEM_SENSORS);
+                }
             }
         });
 
         mCardVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Card Video");
+                if(mListener!=null){
+                    mListener.onItemClick(ITEM_VIDEO);
+                }
             }
         });
 
         mCardNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Card Notification");
+                if(mListener!=null){
+                    mListener.onItemClick(ITEM_NOTIFICATION);
+                }
             }
         });
+    }
+
+    //endregion
+
+    //region [Interface MenuClickListener]
+
+    public interface MenuClickListener{
+        void onItemClick(char item);
     }
 
     //endregion

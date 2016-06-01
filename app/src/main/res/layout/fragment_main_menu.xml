@@ -160,7 +160,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/title_notification"
+                    android:text="@string/title_notifications"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
             </android.support.v7.widget.LinearLayoutCompat>

@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String FRAGMENT_TAG = "mFragment";
 
     private OnFabClickListener onFabClickListener = null;
+    NavigationView mNavigationView;
 
     //region [Public methods]
 
@@ -189,39 +189,31 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        assert navigationView != null;
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert mNavigationView != null;
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressWarnings("StatementWithEmptyBody")
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_geolocation:
                         if (mFragmentMode != FRAGMENT_MODE_GEOPOSITION) {
-                            mFragmentMode = FRAGMENT_MODE_GEOPOSITION;
-                            createGeolocationFragment();
-                            fabGeopositionMode();
+                            launchGeopositionFragment();
                         }
                         break;
                     case R.id.nav_sensor:
                         if (mFragmentMode != FRAGMENT_MODE_SENSOR) {
-                            mFragmentMode = FRAGMENT_MODE_SENSOR;
-                            createSensorFragment();
-                            fabSensorMode();
+                            launchSensorFragment();
                         }
                         break;
                     case R.id.nav_video:
                         if (mFragmentMode != FRAGMENT_MODE_VIDEO) {
-                            mFragmentMode = FRAGMENT_MODE_VIDEO;
-                            createVideoFragment();
-                            fabVideoMode();
+                            launchVideoFragment();
                         }
                         break;
                     case R.id.nav_notification:
                         if (mFragmentMode != FRAGMENT_MODE_NOTIFICATION) {
-                            mFragmentMode = FRAGMENT_MODE_NOTIFICATION;
-                            createNotificationFragment();
-                            fabNotificationMode();
+                            launchNotificationFragment();
                         }
                         break;
                 }
@@ -229,6 +221,33 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void launchGeopositionFragment() {
+        mFragmentMode = FRAGMENT_MODE_GEOPOSITION;
+        createGeolocationFragment();
+        fabGeopositionMode();
+        setTitle(R.string.title_geoposition);
+    }
+
+    private void launchSensorFragment() {
+        mFragmentMode = FRAGMENT_MODE_SENSOR;
+        createSensorFragment();
+        fabSensorMode();
+        setTitle(R.string.title_sensor);
+    }
+    private void launchVideoFragment() {
+        mFragmentMode = FRAGMENT_MODE_VIDEO;
+        createVideoFragment();
+        fabVideoMode();
+        setTitle(R.string.title_video);
+    }
+
+    private void launchNotificationFragment() {
+        mFragmentMode = FRAGMENT_MODE_NOTIFICATION;
+        createNotificationFragment();
+        fabNotificationMode();
+        setTitle(R.string.title_notifications);
     }
 
     private void fabMainMenuMode(){
@@ -276,6 +295,29 @@ public class MainActivity extends AppCompatActivity {
     private void createMainMenuFragment() {
         mContainerFragment.removeAllViews();
         mFragment = new MainMenuFragment();
+        ((MainMenuFragment)mFragment).addMenuClickListener(new MainMenuFragment.MenuClickListener() {
+            @Override
+            public void onItemClick(char item) {
+                switch (item){
+                    case MainMenuFragment.ITEM_GEOPOSITION:
+                        mNavigationView.getMenu().getItem(0).setChecked(true);
+                        launchGeopositionFragment();
+                        break;
+                    case MainMenuFragment.ITEM_SENSORS:
+                        mNavigationView.getMenu().getItem(1).setChecked(true);
+                        launchSensorFragment();
+                        break;
+                    case MainMenuFragment.ITEM_VIDEO:
+                        mNavigationView.getMenu().getItem(2).setChecked(true);
+                        launchVideoFragment();
+                        break;
+                    case MainMenuFragment.ITEM_NOTIFICATION:
+                        mNavigationView.getMenu().getItem(3).setChecked(true);
+                        launchNotificationFragment();
+                        break;
+                }
+            }
+        });
         fragmentTransaction();
     }
 

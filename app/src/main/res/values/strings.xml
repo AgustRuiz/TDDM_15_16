@@ -7,7 +7,7 @@
     <string name="title_activity_main">Main activity</string>
     <string name="title_geoposition">Geoposition</string>
     <string name="title_sensor">Sensors</string>
-    <string name="title_notification">Notification</string>
+    <string name="title_notifications">Notifications</string>
     <string name="title_configuration">Configuration</string>
     <string name="title_location_provider">Location provider</string>
     <string name="title_power_criteria">Power criteria</string>
