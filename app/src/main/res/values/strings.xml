@@ -35,6 +35,7 @@
     <string name="title_pressure">Pressure</string>
     <string name="title_relative_humidity">Relative humidity</string>
     <string name="title_inner_temperature">Inner temperature</string>
+    <string name="title_video">Video</string>
 
     <!-- Navigation drawer -->
 
@@ -92,5 +93,8 @@
     <string name="msg_downloading_video">Downloading video…</string>
     <string name="msg_downloaded_video">Video downloaded!</string>
     <string name="msg_video_ready">Video ready!</string>
+    <string name="description_geoposition_icon">Geoposition icon</string>
+    <string name="description_video_icon">Video icon</string>
+    <string name="description_sensor_icon">Sensor icon</string>
 
 </resources>

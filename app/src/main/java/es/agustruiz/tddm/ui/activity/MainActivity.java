@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.agustruiz.tddm.R;
 import es.agustruiz.tddm.ui.fragment.GeopositionFragment;
+import es.agustruiz.tddm.ui.fragment.MainMenuFragment;
 import es.agustruiz.tddm.ui.fragment.VideoFragment;
 import es.agustruiz.tddm.ui.fragment.NotificationFragment;
 import es.agustruiz.tddm.ui.fragment.SensorFragment;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mContext = getApplicationContext();
+        mFragmentManager = getSupportFragmentManager();
         if(savedInstanceState!=null) {
             mFragmentMode = savedInstanceState.getChar(FRAGMENT_MODE_TAG);
             mFragment = getSupportFragmentManager().getFragment(savedInstanceState, FRAGMENT_TAG);
@@ -90,8 +92,11 @@ public class MainActivity extends AppCompatActivity {
                     fabNotificationMode();
                     break;
                 default:
-                    Log.d(LOG_TAG, "Nothing here");
+                    createMainMenuFragment();
+                    fabMainMenuMode();
             }
+        }else{
+            createMainMenuFragment();
         }
         initialize();
     }
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         initializeViews();
         initializeDrawer();
-        mFragmentManager = getSupportFragmentManager();
+        //mFragmentManager = getSupportFragmentManager();
     }
 
     private void initializeViews() {
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 fabNotificationMode();
                 break;
             default:
-                mFab.setVisibility(View.GONE);
+                fabMainMenuMode();
         }
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +231,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void fabMainMenuMode(){
+        mFab.hide();
+    }
+
     private void fabGeopositionMode(){
         Drawable drawableIcon = ContextCompat.getDrawable(mContext, R.drawable.ic_location_on_black_24dp);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -262,6 +271,12 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.remove(mFragment);
         }
         fragmentTransaction.commit();
+    }
+
+    private void createMainMenuFragment() {
+        mContainerFragment.removeAllViews();
+        mFragment = new MainMenuFragment();
+        fragmentTransaction();
     }
 
     private void createGeolocationFragment() {

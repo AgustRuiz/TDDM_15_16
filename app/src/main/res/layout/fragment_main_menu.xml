@@ -1,0 +1,172 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey200"
+    tools:context=".ui.fragment.MainMenuFragment">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_geoposition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/description_geoposition_icon"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_location_on_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_geoposition"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_sensors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/description_sensor_icon"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_visibility_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_sensor"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/description_video_icon"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_videocam_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_video"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/description_geoposition_icon"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_notifications_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_notification"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</ScrollView>
