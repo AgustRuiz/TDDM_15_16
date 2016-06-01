@@ -1,6 +1,7 @@
 package es.agustruiz.tddm.ui.fragment;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,7 +50,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
     private char mVideoStatus = VIDEO_STATUS_UNDEFINED;
     private final String VIDEO_STATUS_TAG = "mVideoStatus";
 
-    private int mVideoPosition;
+    private int mPosition = 0;
     private final String VIDEO_POSITION_TAG = "mVideoPosition";
 
     //region [Public methods]
@@ -68,7 +69,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
         ButterKnife.bind(this, view);
         if (savedInstanceState != null) {
             mVideoStatus = savedInstanceState.getChar(VIDEO_STATUS_TAG);
-            mVideoView.seekTo(savedInstanceState.getInt(VIDEO_POSITION_TAG));
+            mPosition = savedInstanceState.getInt(VIDEO_POSITION_TAG);
             switchVideoDownloadedStatus();
         } else {
             initializeVideoStatus();
@@ -99,7 +100,7 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
         }
     }
 
-    private void switchVideoDownloadedStatus(){
+    private void switchVideoDownloadedStatus() {
         switch (mVideoStatus) {
             case VIDEO_STATUS_OK:
                 setViewsVideoReady();
@@ -144,11 +145,20 @@ public class VideoFragment extends Fragment implements MainActivity.OnFabClickLi
             mBtnVideoDownload.setVisibility(View.GONE);
         }
 
-        if(mVideoStatus==VIDEO_STATUS_OK){
+        if (mVideoStatus == VIDEO_STATUS_OK) {
             mVideoView.setVideoPath(DownloadVideoFromUrl.getRootPath() + "/"
                     + STORAGE_VIDEO_RELATIVE_PATH + "/" + STORAGE_VIDEO_NAME);
             MediaController mediaController = new MediaController(mContext);
             mVideoView.setMediaController(mediaController);
+            mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    if (mPosition > 0) {
+                        mVideoView.seekTo(mPosition);
+                        mVideoView.start();
+                    }
+                }
+            });
         }
     }
 
