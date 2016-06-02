@@ -21,7 +21,6 @@ public class RegistrationService extends IntentService {
 
     public RegistrationService() {
         super(SERVICE_NAME);
-        //mContext = getApplicationContext();
     }
 
     //region [IntentService methods]
